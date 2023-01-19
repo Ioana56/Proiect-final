@@ -1,0 +1,18 @@
+﻿
+@model Blog_Remastered.Models.Comment
+
+<!-- Respond -->
+<div id="respond" class="comment-respond">
+<h2 class="title"><span>Leave a Reply</span></h2>
+	<form asp-controller="Home" asp-action="Comment" method="post" class="contact">
+		<div class="contact-item">
+			<label>Your Comment *</label>
+			<textarea asp-for="Body" class="form-control" aria-required="true"></textarea>
+			<input type="hidden" asp-for="PostIdFromQuery" value="@(ViewContext.RouteData.Values["id"])"/>
+		</div>
+		<div class="contact-item form-submit">
+			<input name="submit" type="submit" id="submit" class="submit" value="Submit">
+		</div>
+	</form>
+</div><!-- #respond -->
+<!-- End Respond -->
