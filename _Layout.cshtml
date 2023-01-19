@@ -1,0 +1,162 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>BreazIoana | Blog</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="icon" href="images/favicon.png" sizes="32x32" />
+
+	<link rel='stylesheet' href='//fonts.googleapis.com/css?family=Lato:400,700%7CCrete+Round' type='text/css' media='all' />
+
+	<link rel="stylesheet" type="text/css" href="/css/libs/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/libs/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body class="home">
+	
+		<!-- Wrapper Site -->
+	<div id="main-content">
+
+		<!-- Preload -->
+@*		<div id="preload">
+			<div class="kd-bounce">
+				<div></div>
+				<div></div>
+			</div>
+		</div>*@
+		<!-- Preload -->
+
+		<!-- Mobile Menu -->
+		<div class="mobile">
+			<div class="container">
+				<!-- Mobile -->
+				<div class="menu-mobile">
+					<span class="item item-1"></span>
+					<span class="item item-2"></span>
+					<span class="item item-3"></span>
+				</div>
+				<!-- End Mobile -->
+			</div>
+		</div>
+		<div class="hide-menu"></div>
+		<!-- End Mobile Menu -->
+
+		<div class="container">
+			<div class="row">
+
+				<div class="col-md-3">
+					<div class="header affix">
+						<div class="table">
+							<div class="table-cell">
+
+								<!-- Navigation -->
+								<div class="main-menu">
+									<nav>
+										<ul class="menu-list">
+											<li class="menu-item-has-children">
+												<a asp-controller="Home" asp-action="Index">Home</a>
+											</li>
+											@if (SignInManager.IsSignedIn(User)) {
+												<li class="menu-item-has-children">
+												<a asp-controller="Post" asp-action="Index">Create a post</a>
+											</li>
+											<li>
+												<a href="#">@UserManager.GetUserName(User)!</a>
+											</li>
+											<li>
+												<a asp-controller="Home" asp-action="Logout">Logout</a>
+												
+											</li>
+											} else
+											{
+											<li class="menu-item-has-children">
+												<a asp-area="Identity" asp-page="/Account/Register">Register</a>
+											</li>
+											<li>
+												<a asp-area="Identity" asp-page="/Account/Login">Login</a>
+											</li>
+											}
+										</ul>
+									</nav>
+								</div>
+								<!-- End Navigation -->
+
+								<div class="copyright">
+									<p>
+										Copyright &#169; 2023. Design by <a href="#">Breaz Ioana</a>
+									</p>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+    <div>
+        @RenderBody()
+    </div>
+
+	</div>
+		</div>
+	</div>
+	<!-- End Wrapper Site -->
+
+	<!-- Footer -->
+	<footer id="footer" class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9 col-md-offset-3">
+					<div class="footer-inner">
+						<div class="footer-widgets">
+							<div class="row">
+								<div class="col-sm-6">
+									<div class="widget">
+										<h2 class="title"><span>About Me</span></h2>
+										<p>
+											"Creativity is seeing what others see and thinking what no one else ever thought." - Albert Einstein.
+										</p>
+									</div>
+								</div>
+								<div class="col-sm-6">
+									<div class="widget">
+										<h2 class="title"><span>Contact Me</span></h2>
+										<ul>
+											<li>
+												Tel: +40787665777
+											</li>
+											<li>
+												Email: breazioana72@gmail.com
+											</li>
+											<li>
+												Address: Cluj-Napoca, Romania
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="col-sm-12">
+									<div class="copyright">
+										<p>Copyright &#169; 2023. Design by <a href="#">Breaz Ioana</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	@RenderSection("scripts")
+	<script src="js/libs/jquery-1.12.4.min.js"></script>
+	<script src="js/libs/masonry.pkgd.min.js"></script>
+	<script src="js/libs/imagesloaded.pkgd.min.js"></script>
+	<script src="js/scripts.js"></script>
+</body>
+</html>
