@@ -1,0 +1,107 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model Blog_Remastered.Models.Post
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<div class="col-md-9 col-md-offset-3">
+					<div class="posts">
+						<div class="posts-inner">
+							<article class="post">
+								<div class="post-header">
+									<h2 class="title"><span>@Html.DisplayFor(modelItem => Model.Title)</span></h2>
+
+									<!-- Post Details -->
+									<div class="post-details">
+										<div class="post-cat">
+									@if(SignInManager.IsSignedIn(User) && UserManager.GetUserId(User) == Model.Author.ApplicationUserId)
+									{
+										<a asp-controller="Post" asp-action="Index" asp-route-id="@(Model.Id)">Edit</a>
+										<a asp-controller="Post" asp-action="Delete" asp-route-id="@(Model.Id)">Delete</a>
+									}
+						</div>
+										<a href="#" class="post-date"><span>@(String.Format("{0:MMM dd, yyyy}", Model.Created))</span></a>
+										<div class="post-details-child">
+											<a href="#" class="post-views">@Html.DisplayFor(modelItem => Model.PageViews) views</a>
+											<a href="#" class="post-comments">@Html.DisplayFor(modelItem => Model.Comments.Count) Comments</a>
+										</div>
+									</div>
+									<!-- End Post Details -->
+								</div>
+								<div class="post-content">
+
+									<!-- The Content -->
+									<div class="the-excerpt">
+										<p>
+											@Html.DisplayFor(modelItem => Model.Body)
+										</p>
+									</div>
+									<!-- End The Content -->
+
+									<div class="post-author">
+										Writed by  <a href="#">@Html.DisplayFor(modelItem => Model.Author.Username)</a>
+									</div>
+								</div>
+
+							</article>
+						</div>
+
+						<!-- Pagination -->
+						<div class="pagination-wrap">
+
+							<div class="older">
+								<a href="#">Prev Post <i class="fa fa-angle-double-right"></i></a>
+							</div>
+							<div class="newer">
+								<a href="#"><i class="fa fa-angle-double-left"></i> Next Post</a>
+							</div>
+						</div>
+						<!-- End Pagination -->
+
+						<!-- Author Box -->
+						<div class="author-box">
+							<div class="header-top clearfix">
+								<div class="author-name">
+									<h3 class="title">
+										@Html.DisplayFor(modelItem => Model.Author.Username)
+									</h3>
+								</div>
+
+							</div>
+							<div class="author-description">
+								@Html.DisplayFor(modelItem => Model.Author.About)
+							</div>
+						</div>
+						<!-- End Author Box -->
+
+						<!-- Comments -->
+						<div id="comments">
+							<h2 class="title"><span>@Html.DisplayFor(modelItem => Model.Comments.Count) Comments</span></h2>
+							<div class="comments-inner">
+								<ul class="comment-list">
+									@foreach(var item in Model.Comments)
+									{
+									<li class="comment">
+										<div class="comment-body">
+											<div class="comment-head">
+												<div class="comment-info">
+													<h5 class="title">@Html.DisplayFor(modelItem => item.Author.Username)</h5>
+													<span class="comment-date">@(String.Format("{0:MMM dd, yyyy}", item.Created))</span>
+												</div>
+											</div>
+											<div class="comment-context">
+												<p>@Html.DisplayFor(modelItem => item.Body)</p>
+											</div>
+										</div>
+									</li>
+									}
+				</ul>
+							</div>
+
+						<partial name="./AddComment.cshtml" model="null" />
+						</div>
+						<!-- End Comments -->
+					</div>
+					</div>
+
+@section scripts {}
