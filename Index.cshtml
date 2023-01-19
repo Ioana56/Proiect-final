@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Blog_Remastered.Models.Post>
+
+<div class="col-md-9 col-md-offset-3">
+					<div class="posts">
+						<div class="posts-inner">
+							
+							@foreach(var item in Model) {
+								<article class="post">
+								<div class="post-header">
+									<h2 class="title">
+										<a href="single.html">@Html.DisplayFor(modelItem => item.Title)</a>
+									</h2>
+
+									<!-- Post Details -->
+									<div class="post-details">
+										<a href="#" class="post-date"><span>@(String.Format("{0:MMM dd, yyyy}", item.Created))</span></a>
+										<div class="post-details-child">
+											<a href="#" class="post-views">@Html.DisplayFor(modelItem => item.PageViews) views</a>
+											<a href="#" class="post-comments">@Html.DisplayFor(modelItem => item.Comments.Count) Comments</a>
+										</div>
+									</div>
+									<!-- End Post Details -->
+								</div>
+								<div class="post-content">
+
+									<!-- The Content -->
+									<div class="the-excerpt">
+										<p>
+											@(String.Format("{0}", item.Body.Substring(0, item.Body.Count() > 20 ? 20 : item.Body.Count())))
+										</p>
+									</div>
+									<!-- End The Content -->
+								</div>
+
+								<div class="read-more">
+									<a asp-controller="Home" asp-action="Post" asp-route-id="@(item.Id)">Continue Reading ...</a>
+								</div>
+
+
+							</article>
+							}
+
+						</div>
+					</div>
+				</div>
+@section scripts {}
